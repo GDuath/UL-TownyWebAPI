@@ -1,0 +1,6 @@
+name: TownyWebAPI
+version: 0.1.1
+main: org.unitedlands.TownyWebAPI
+api-version: 1.18
+description: A custom United Lands plugin to expose Towny data to the web.
+author: Theriel_

@@ -1,5 +1,6 @@
 package org.unitedlands.DTO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -14,7 +15,7 @@ public class DTONation {
     public UUID uuid;
     public String name;
     public long founded;
-    public String type; 
+    public String type;
     public DTOResident leader;
     public DTOTown capital;
     public int resident_count;
@@ -24,10 +25,12 @@ public class DTONation {
     public double balance;
     public double upkeep;
 
+    public List<DTOCoordinate> blocks;
+
     public DTONation(Nation nation) {
         this.uuid = nation.getUUID();
         this.name = nation.getName();
-        this.founded = nation.getRegistered(); 
+        this.founded = nation.getRegistered();
 
         var major = new BooleanDataField("official_major_nation", true);
         var minor = new BooleanDataField("official_minor_nation", true);
@@ -52,9 +55,22 @@ public class DTONation {
         this.town_count = nation.getNumTowns();
         this.towns = nation.getTowns().stream().map(t -> t.getName()).collect(Collectors.toList());
         this.balance = nation.getAccount().getHoldingBalance();
-        if (TownyEconomyHandler.isActive() && TownySettings.isUsingEconomy())
-        {
+        if (TownyEconomyHandler.isActive() && TownySettings.isUsingEconomy()) {
             this.upkeep = TownySettings.getNationUpkeepCost(nation);
         }
+
+        ArrayList<DTOCoordinate> townClaims = new ArrayList<DTOCoordinate>();
+
+        var townList = nation.getTowns();
+        for (int i = 0; i < townList.size(); i++)
+        {
+            final int index = i;
+            var t = townList.get(i);
+            var c = t.getTownBlocks().stream().map(b -> new DTOCoordinate(b.getX(), b.getZ(), index)).collect(Collectors.toList());
+
+            townClaims.addAll(c);
+        }        
+
+        this.blocks = townClaims;
     }
 }

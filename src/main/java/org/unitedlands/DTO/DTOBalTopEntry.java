@@ -6,4 +6,9 @@ public class DTOBalTopEntry {
 
     public DTOBalTopEntry() {
     }
+
+    public DTOBalTopEntry(String name, double bal) {
+        this.name = name;
+        this.balance = bal;
+    }
 }

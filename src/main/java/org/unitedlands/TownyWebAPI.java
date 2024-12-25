@@ -5,7 +5,7 @@ import static spark.Spark.*;
 import java.util.Collection;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.unitedlands.Endpoints.BaltopEndpoint;
+import org.unitedlands.Endpoints.LeaderboardsEndpoint;
 import org.unitedlands.Endpoints.NationEndpoints;
 import org.unitedlands.Endpoints.ResidentEndpoints;
 import org.unitedlands.Endpoints.TownEndoints;
@@ -32,7 +32,7 @@ public class TownyWebAPI extends JavaPlugin {
         var residentsEndpoints = new ResidentEndpoints(this);
         var townEndoints = new TownEndoints(this);
         var nationEndpoint = new NationEndpoints(this);
-        var baltopEndpoints = new BaltopEndpoint(this);
+        var leaderboardEndpoints = new LeaderboardsEndpoint(this);
         
     }
 
